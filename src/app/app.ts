@@ -1,11 +1,11 @@
 import { Component, signal } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { ProgressBar } from './shared/components/progress-bar/progress-bar';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet],
+  imports: [ProgressBar],
   templateUrl: './app.html',
-  styleUrl: './app.scss'
+  styleUrls: ['./app.scss'],
 })
 export class App {
   protected readonly title = signal('health-and-wellbeing-quiz');
