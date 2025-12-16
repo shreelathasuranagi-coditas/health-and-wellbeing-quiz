@@ -1,0 +1,138 @@
+{
+    "personal": [
+        {
+            "question": "What are your main health goals?",
+            "type": "text",
+            "placeholder": "Enter your answer"
+        },
+        {
+            "question": "How often do you exercise per week?",
+            "type": "radio",
+            "options": [
+                "Never",
+                "1-2 times",
+                "3-4 times",
+                "5+ times",
+                "Daily"
+            ]
+        },
+        {
+            "question": "Which dietary preferences do you follow?",
+            "type": "checkbox",
+            "options": [
+                "Vegetarian",
+                "Vegan",
+                "Gluten-free",
+                "Low-carb",
+                "No restrictions",
+                "Other"
+            ]
+        },
+        {
+            "question": "How many glasses of water do you drink daily?",
+            "type": "number",
+            "placeholder": "Enter number of glasses"
+        },
+        {
+            "question": "How would you describe your current energy levels?",
+            "type": "radio",
+            "options": [
+                "Very Low",
+                "Low",
+                "Moderate",
+                "High",
+                "Very High"
+            ]
+        }
+    ],
+    "general": [
+        {
+            "question": "What is your current occupation?",
+            "type": "text",
+            "placeholder": "Enter your answer"
+        },
+        {
+            "question": "How would you rate your overall stress level?",
+            "type": "radio",
+            "options": [
+                "Very Low",
+                "Low",
+                "Moderate",
+                "High",
+                "Very High"
+            ]
+        },
+        {
+            "question": "Which wellness activities do you regularly engage in?",
+            "type": "checkbox",
+            "options": [
+                "Exercise",
+                "Meditation",
+                "Yoga",
+                "Reading",
+                "Journaling",
+                "Healthy Cooking"
+            ]
+        },
+        {
+            "question": "How many hours of sleep do you typically get per night?",
+            "type": "number",
+            "placeholder": "Enter a number"
+        },
+        {
+            "question": "Do you have access to healthcare services?",
+            "type": "radio",
+            "options": [
+                "Yes, regularly",
+                "Yes, but limited",
+                "No",
+                "Unsure"
+            ]
+        }
+    ],
+    "family": [
+        {
+            "question": "Describe your family's approach to health and wellness",
+            "type": "text",
+            "placeholder": "Enter your answer"
+        },
+        {
+            "question": "Does your family have a history of any chronic conditions?",
+            "type": "radio",
+            "options": [
+                "Yes",
+                "No",
+                "Unsure",
+                "Prefer not to say"
+            ]
+        },
+        {
+            "question": "Which health activities does your family do together?",
+            "type": "checkbox",
+            "options": [
+                "Cooking healthy meals",
+                "Walking/Hiking",
+                "Playing sports",
+                "Cycling",
+                "Swimming",
+                "None currently"
+            ]
+        },
+        {
+            "question": "How many family members live in your household?",
+            "type": "number",
+            "placeholder": "Enter a number"
+        },
+        {
+            "question": "How supportive is your family regarding your health goals?",
+            "type": "radio",
+            "options": [
+                "Very supportive",
+                "Supportive",
+                "Neutral",
+                "Not very supportive",
+                "Not supportive at all"
+            ]
+        }
+    ]
+}
