@@ -1,1 +1,71 @@
-<p>input-renderer works!</p>
+@switch (question().type) {
+
+  @case ('text') {
+    <mat-form-field appearance="outline">
+      <mat-label>{{ question().label }}</mat-label>
+      <input
+        matInput
+        [required]="question().required"
+        [value]="value()"
+        (input)="onChange($any($event.target).value)"
+      />
+    </mat-form-field>
+  }
+
+  @case ('number') {
+    <mat-form-field appearance="outline">
+      <mat-label>{{ question().label }}</mat-label>
+      <input
+        matInput
+        type="number"
+        [required]="question().required"
+        [value]="value()"
+        (input)="onChange($any($event.target).value)"
+      />
+    </mat-form-field>
+  }
+
+  @case ('radio') {
+    <div>
+      <label class="question-label">{{ question().label }}</label>
+
+      <mat-radio-group
+        [value]="value()"
+        (change)="onChange($event.value)"
+      >
+        @for (option of question().options ?? []; track option) {
+          <mat-radio-button [value]="option">
+            {{ option }}
+          </mat-radio-button>
+        }
+      </mat-radio-group>
+    </div>
+  }
+
+  @case ('select') {
+    <mat-form-field appearance="outline">
+      <mat-label>{{ question().label }}</mat-label>
+
+      <mat-select
+        [value]="value()"
+        (selectionChange)="onChange($event.value)"
+      >
+        @for (option of question().options ?? []; track option) {
+          <mat-option [value]="option">
+            {{ option }}
+          </mat-option>
+        }
+      </mat-select>
+    </mat-form-field>
+  }
+
+  @case ('checkbox') {
+    <mat-checkbox
+      [checked]="value()"
+      (change)="onChange($event.checked)"
+    >
+      {{ question().label }}
+    </mat-checkbox>
+  }
+
+}

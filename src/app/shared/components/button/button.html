@@ -1,1 +1,16 @@
-<p>button works!</p>
+<button
+  mat-raised-button
+  [attr.type]="type()"
+  [color]="color()"
+  [disabled]="disabled() || loading()"
+  (click)="clicked.emit()"
+>
+  @if (!loading()) {
+  <ng-container>
+    <ng-content></ng-content>
+  </ng-container>
+  } @else {
+  <ng-template> Loading... </ng-template>
+
+  }
+</button>
