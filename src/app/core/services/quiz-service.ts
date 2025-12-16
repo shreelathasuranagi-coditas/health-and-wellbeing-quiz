@@ -27,5 +27,6 @@ export class QuizService {
     getFamilyInfo(){
       return this.http.get<Question[]>( `${this.url}/${this.familyData}`);
     }
+    
 }
 

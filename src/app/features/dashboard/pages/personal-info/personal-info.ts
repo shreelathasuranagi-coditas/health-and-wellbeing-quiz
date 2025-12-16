@@ -12,6 +12,7 @@ export class PersonalInfo {
 
   quizService=inject(QuizService);
   questions=signal<Question[]>([]);
+  
   ngOnInit(){
     this.quizService.getPersonalInfo().subscribe(data=>{
       this.questions.set(data);
