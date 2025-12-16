@@ -1,11 +1,7 @@
 export interface Question {
     question: string;
     type: 'text' | 'number' | 'radio' | 'checkbox';
-  
-   
-    placeholder?: string;
-  
-   
+    placeholder?: string;   
     options?: string[];
   }
   
