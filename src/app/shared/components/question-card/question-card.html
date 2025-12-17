@@ -1,4 +1,7 @@
 <mat-card class="question-card">
-    <app-input-renderer [question]="question"></app-input-renderer>
+    <app-input-renderer
+      [question]="question()"
+      (answerChange)="onAnswerChange($event)">
+    </app-input-renderer>
   </mat-card>
   
