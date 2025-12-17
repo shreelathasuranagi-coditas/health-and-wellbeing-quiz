@@ -1,9 +1,10 @@
 export type QuestionType = 'text' | 'number' | 'radio' | 'select' | 'checkbox';
 
 export interface Question {
-  type: 'text' | 'number' | 'radio' | 'select' | 'checkbox';
-  label: string;
-  required?: boolean;
-  options?: string[];
-  placeholder?: string;
-}
+    question: string;
+    type: 'text' | 'number' | 'radio' | 'checkbox';
+    placeholder?: string;   
+    options?: string[];
+  }
+  
+ 
