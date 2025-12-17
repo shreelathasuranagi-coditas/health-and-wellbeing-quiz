@@ -24,7 +24,7 @@ export class PersonalInfo {
   answers = signal<Record<string, any>>({});
 
   ngOnInit() {
-    this.quizService.getGeneralInfo().subscribe(data => {
+    this.quizService.getPersonalInfo().subscribe(data => {
       this.questions.set(data);
     });
   }

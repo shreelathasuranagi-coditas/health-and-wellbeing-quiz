@@ -24,7 +24,7 @@ export class FamilyInfo {
   answers = signal<Record<string, any>>({});
 
   ngOnInit() {
-    this.quizService.getGeneralInfo().subscribe(data => {
+    this.quizService.getFamilyInfo().subscribe(data => {
       this.questions.set(data);
     });
   }

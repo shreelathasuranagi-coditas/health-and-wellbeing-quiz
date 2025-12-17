@@ -33,7 +33,7 @@ export class GeneralInfo {
 
   // called when ANY answer changes
   onAnswerChange(payload: { question: string; answer: any }) {
-    
+
     this.answers.update(prev => ({
       ...prev,
       [payload.question]: payload.answer,
@@ -42,3 +42,4 @@ export class GeneralInfo {
     console.log('GENERAL INFO ANSWERS:', this.answers());
   }
 }
+
