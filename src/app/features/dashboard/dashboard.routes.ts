@@ -20,4 +20,8 @@ export const DASHBOARD_ROUTES: Routes = [
     path: 'personal-info',
     loadComponent: () => import('./pages/personal-info/personal-info').then((m) => m.PersonalInfo),
   },
+  {
+    path: 'summary',
+    loadComponent: () => import('./pages/summary/summary').then((m) => m.Summary),
+  },
 ];
