@@ -1,0 +1,72 @@
+.sidenav-container {
+  height: 100%;
+}
+
+.sidebar {
+  width: 300px;
+  background: #ffffff;
+  height: 100%;
+  box-shadow: none;
+  border-right: 1px solid rgba(0,0,0,0.04);
+  padding: 24px 16px;
+  box-sizing: border-box;
+}
+
+.sidebar-inner {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.sidebar-title {
+  text-align: center;
+  margin: 0 0 8px 0;
+  font-size: 20px;
+  font-weight: 700;
+}
+
+.categories {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.category-card {
+  border-radius: 10px;
+  padding: 12px;
+  box-shadow: none;
+}
+
+.category-card.selected {
+  background: #e6f0ff;
+  border-left: 6px solid #2b67ff;
+}
+
+.card-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 8px;
+}
+
+.card-title {
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.card-icon mat-icon {
+  font-size: 22px;
+}
+
+.card-footer {
+  text-align: right;
+  font-size: 14px;
+  color: rgba(0,0,0,0.6);
+  margin-top: 8px;
+}
+
+mat-progress-bar {
+  height: 10px;
+  border-radius: 6px;
+  background: rgba(0,0,0,0.06);
+}

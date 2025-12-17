@@ -1,6 +1,28 @@
+<mat-sidenav-container class="sidenav-container">
+  <mat-sidenav #drawer opened mode="side" class="sidebar">
+    <div class="sidebar-inner">
+      <h3 class="sidebar-title">Categories</h3>
 
-<mat-sidenav #drawer  opened>
-  <p>Start</p>
-  <button mat-button>Menu 1</button>
-  <button mat-button>Menu 2</button>
-</mat-sidenav>
+      <div class="categories">
+        <mat-card
+          class="category-card"
+          *ngFor="let cat of categories"
+          [class.selected]="selected === cat.id"
+        >
+          <div class="card-row">
+            <div class="card-title">{{ cat.title }}</div>
+            <div class="card-icon">
+              <mat-icon *ngIf="isComplete(cat)" color="primary">check_circle</mat-icon>
+              <mat-icon *ngIf="!isComplete(cat)">radio_button_unchecked</mat-icon>
+            </div>
+          </div>
+
+          <mat-progress-bar mode="determinate" [value]="cat.progress"></mat-progress-bar>
+
+          <div class="card-footer">{{ cat.completed }}/{{ cat.total }}</div>
+        </mat-card>
+      </div>
+    </div>
+  </mat-sidenav>
+  <mat-sidenav-content></mat-sidenav-content>
+</mat-sidenav-container>
