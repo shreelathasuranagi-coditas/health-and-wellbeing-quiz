@@ -1,16 +1,17 @@
-<div class="question-card">
-  @if (sectionLabel()) {
-    <div class="section-pill">
-      {{ sectionLabel() }}
-    </div>
-  }
+@if (question()) {
+  <mat-card class="question-card">
 
-  <h2 class="question-title">
-    {{ question().question }}
-  </h2>
+    <mat-card-title class="question-title">
+      {{ question()!.question }} 
+    </mat-card-title>
 
-  <app-input-renderer
-    [question]="question()"
-    (answerChange)="onAnswerChange($event)">
-  </app-input-renderer>
-</div>
+    <mat-card-content>
+      <app-input-renderer  
+        [question]="question()!"
+        (answerChange)="onAnswerChange($event)">
+      </app-input-renderer>
+    </mat-card-content>
+
+  </mat-card>
+}
+
