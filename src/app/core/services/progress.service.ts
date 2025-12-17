@@ -10,6 +10,12 @@ export interface SectionProgress {
   progress: number; 
 }
 
+export interface AnswerEntry {
+  section: SectionId;
+  question: string;
+  answer: string;
+}
+
 @Injectable({ providedIn: 'root' })
 export class ProgressService {
   private sections = signal<SectionProgress[]>([
@@ -20,7 +26,20 @@ export class ProgressService {
 
   selected = signal<SectionId>('general');
 
+  private answers = signal<Record<SectionId, Record<string, AnswerEntry>>>({
+    general: {},
+    personal: {},
+    family: {},
+  });
+
   sectionList = computed(() => this.sections());
+  allAnswers = computed(() =>
+    Object.values(this.answers()).flatMap(sectionMap => Object.values(sectionMap)),
+  );
+
+  sectionAnswers(id: SectionId) {
+    return computed(() => Object.values(this.answers()[id] ?? {}));
+  }
 
   setSelected(id: SectionId) {
     this.selected.set(id);
@@ -43,5 +62,15 @@ export class ProgressService {
         };
       }),
     );
+  }
+
+  setAnswer(section: SectionId, question: string, answer: string) {
+    this.answers.update(prev => ({
+      ...prev,
+      [section]: {
+        ...(prev[section] ?? {}),
+        [question]: { section, question, answer },
+      },
+    }));
   }
 }

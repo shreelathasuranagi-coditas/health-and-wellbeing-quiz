@@ -1,0 +1,26 @@
+<div class="summary-shell">
+  <h2 class="summary-title">
+    <mat-icon color="primary">check_circle</mat-icon>
+    Your Answers
+  </h2>
+
+  <div class="summary-grid">
+    @for (section of grouped() | keyvalue; track section.key) {
+      <mat-card class="section-card">
+        <div class="section-head">
+          <h3>{{ section.key | titlecase }} Info</h3>
+          <mat-icon color="primary">check_circle</mat-icon>
+        </div>
+
+        <div class="qa-list">
+          @for (item of section.value; track item.question) {
+            <div class="qa-row">
+              <div class="question">{{ item.question }}</div>
+              <div class="answer">{{ item.answer }}</div>
+            </div>
+          }
+        </div>
+      </mat-card>
+    }
+  </div>
+</div>

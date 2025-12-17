@@ -84,6 +84,7 @@ export class PersonalInfo {
       ...prev,
       [payload.question]: payload.answer,
     }));
+    this.progress.setAnswer('personal', payload.question, String(payload.answer ?? ''));
     this.updateProgress();
   }
 

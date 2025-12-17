@@ -93,6 +93,7 @@ export class GeneralInfo {
       [payload.question]: payload.answer,
     }));
 
+    this.progress.setAnswer('general', payload.question, String(payload.answer ?? ''));
     this.updateProgress();
     console.log('GENERAL INFO ANSWERS:', this.answers());
   }
