@@ -1,9 +1,9 @@
 import { Component, signal } from '@angular/core';
-import { ProgressBar } from './shared/components/progress-bar/progress-bar';
+import { RouterOutlet } from '@angular/router';
 
 @Component({
   selector: 'app-root',
-  imports: [ProgressBar],
+  imports: [RouterOutlet],
   templateUrl: './app.html',
   styleUrls: ['./app.scss'],
 })
