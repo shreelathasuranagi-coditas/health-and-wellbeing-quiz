@@ -1,7 +1,16 @@
-<mat-card class="question-card">
-    <app-input-renderer
-      [question]="question()"
-      (answerChange)="onAnswerChange($event)">
-    </app-input-renderer>
-  </mat-card>
-  
+<div class="question-card">
+  @if (sectionLabel()) {
+    <div class="section-pill">
+      {{ sectionLabel() }}
+    </div>
+  }
+
+  <h2 class="question-title">
+    {{ question().question }}
+  </h2>
+
+  <app-input-renderer
+    [question]="question()"
+    (answerChange)="onAnswerChange($event)">
+  </app-input-renderer>
+</div>
