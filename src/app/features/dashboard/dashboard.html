@@ -1,14 +1,4 @@
-<mat-sidenav-container class="layout">
-
-  <!-- For now for layout after this we will keep separate components -->
-  <mat-sidenav mode="side" opened>
-    <app-sidebar></app-sidebar>
-  </mat-sidenav>
-
-  
-  <mat-sidenav-content>
-    
-    <router-outlet></router-outlet>
-  </mat-sidenav-content>
-
-</mat-sidenav-container>
+<div class="container">
+  <section class="sidenav-section"><app-sidebar></app-sidebar></section>
+  <section class="sidenav-content"></section>
+</div>

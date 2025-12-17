@@ -1,0 +1,12 @@
+.container{
+    display: grid;
+    min-height: 100vh;
+    grid-template-columns: auto 1fr;
+
+    .sidenav-section{
+        background-color: red;
+    }
+    .sidenav-content{
+        background-color: blue;
+    }
+}
