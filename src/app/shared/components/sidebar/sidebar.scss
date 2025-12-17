@@ -1,5 +1,7 @@
 .sidenav-container {
   height: 100%;
+  min-width: 300px; /* prevent collapse inside grid layout */
+  background: transparent;
 }
 
 .sidebar {
@@ -10,6 +12,7 @@
   border-right: 1px solid rgba(0,0,0,0.04);
   padding: 24px 16px;
   box-sizing: border-box;
+  box-shadow: 0 16px 40px rgba(15, 23, 42, 0.08);
 }
 
 .sidebar-inner {
@@ -35,11 +38,20 @@
   border-radius: 10px;
   padding: 12px;
   box-shadow: none;
+  background: #f8fbff;
+  border: 1px solid #e5e7eb;
+  cursor: pointer;
+  transition: all 0.2s ease;
 }
 
 .category-card.selected {
   background: #e6f0ff;
   border-left: 6px solid #2b67ff;
+}
+
+.category-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 30px rgba(15, 23, 42, 0.08);
 }
 
 .card-row {

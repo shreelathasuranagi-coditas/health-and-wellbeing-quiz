@@ -1,13 +1,16 @@
-<mat-card class="question-card">
-  <mat-card-header>
-    <mat-card-title>{{ question().question }}</mat-card-title>
-  </mat-card-header>
+<div class="question-card">
+  @if (sectionLabel()) {
+    <div class="section-pill">
+      {{ sectionLabel() }}
+    </div>
+  }
 
-  <mat-card-content>
-    <app-input-renderer
-      [question]="question()"
-      (answerChange)="onAnswerChange($event)">
-    </app-input-renderer>
-  </mat-card-content>
-</mat-card>
-  
+  <h2 class="question-title">
+    {{ question().question }}
+  </h2>
+
+  <app-input-renderer
+    [question]="question()"
+    (answerChange)="onAnswerChange($event)">
+  </app-input-renderer>
+</div>

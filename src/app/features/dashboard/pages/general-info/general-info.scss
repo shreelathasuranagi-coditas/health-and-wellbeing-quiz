@@ -1,0 +1,121 @@
+:host {
+  display: block;
+}
+
+.page-shell {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding: 32px 40px 40px;
+  align-items: stretch;
+}
+
+.card-wrapper {
+  width: min(980px, 100%);
+  align-self: center;
+}
+
+.page-header {
+  width: min(980px, 100%);
+  align-self: center;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 20px;
+  font-weight: 700;
+  color: #0f172a;
+}
+
+.brand-icon {
+  width: 32px;
+  height: 32px;
+}
+
+.progress-banner {
+  background: #f5f7ff;
+  border-radius: 12px;
+  padding: 12px 14px;
+  box-shadow: 0 12px 30px rgba(15, 23, 42, 0.04);
+}
+
+.progress-meta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  color: #0f172a;
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+
+mat-progress-bar {
+  height: 10px;
+  border-radius: 999px;
+  background: #e2e8f0;
+}
+
+.question-shell {
+  padding: 28px 28px 32px;
+  box-shadow: 0 18px 50px rgba(15, 23, 42, 0.12);
+  border-radius: 18px;
+}
+
+.card-head {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 8px;
+}
+
+.card-title-wrap {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.card-title-wrap h3 {
+  margin: 0;
+  font-size: 22px;
+  font-weight: 800;
+  color: #0f172a;
+}
+
+.title-icon {
+  font-size: 22px;
+}
+
+.title-icon.muted {
+  color: #cbd5e1;
+}
+
+.nav-controls.outside {
+  width: min(980px, 100%);
+  align-self: center;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.nav-counter {
+  color: #475569;
+  font-weight: 600;
+}
+
+.nav-controls button[mat-stroked-button] {
+  background: #eef2ff;
+  color: #374151;
+  border-color: transparent;
+  gap: 6px;
+}
+
+.nav-controls button[mat-raised-button] {
+  background: #2b67ff;
+  color: #fff;
+  gap: 6px;
+}
