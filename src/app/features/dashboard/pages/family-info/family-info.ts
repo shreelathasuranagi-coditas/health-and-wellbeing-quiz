@@ -1,4 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
+import { QuizService } from '../../../../core/services/quiz-service';
+import { Question } from '../../../../core/models/quiz.model';
 
 @Component({
   selector: 'app-family-info',
@@ -8,4 +10,13 @@ import { Component } from '@angular/core';
 })
 export class FamilyInfo {
 
+  quizService=inject(QuizService);
+  questions=signal<Question[]>([]);
+  ngOnInit(){
+    this.quizService.getFamilyInfo().subscribe(data=>{
+      this.questions.set(data);
+    })
+  }
+
 }
+
