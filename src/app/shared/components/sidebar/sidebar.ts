@@ -55,7 +55,8 @@ export class Sidebar {
         const url = event.urlAfterRedirects || event.url;
         if (url.includes('general-info')) this.progress.setSelected('general');
         else if (url.includes('personal-info')) this.progress.setSelected('personal');
-        else if (url.includes('family-info')) this.progress.setSelected('family');
+        else if (url.includes('family-info') || url.includes('summary'))
+          this.progress.setSelected('family');
       });
   }
 }

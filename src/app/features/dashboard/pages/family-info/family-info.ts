@@ -86,6 +86,7 @@ export class FamilyInfo {
       ...prev,
       [payload.question]: payload.answer,
     }));
+    this.progress.setAnswer('family', payload.question, String(payload.answer ?? ''));
     this.updateProgress();
   }
 
@@ -95,6 +96,9 @@ export class FamilyInfo {
 
     if (next < list.length) {
       this.currentIndex.set(next);
+    } else {
+      // all done -> go to summary
+      this.router.navigate(['/summary']);
     }
   }
 

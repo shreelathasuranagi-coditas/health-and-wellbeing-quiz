@@ -57,7 +57,7 @@
       mat-raised-button
       color="primary"
       (click)="nextQuestion()"
-      [disabled]="currentIndex() >= questions().length - 1">
+      [disabled]="questions().length === 0">
       Next
       <mat-icon>chevron_right</mat-icon>
     </button>
