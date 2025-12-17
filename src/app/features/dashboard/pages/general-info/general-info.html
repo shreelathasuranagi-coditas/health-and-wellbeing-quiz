@@ -1,4 +1,13 @@
-@for (q of this.questions(); track $index) {
-    <app-question-card [question]="q"></app-question-card>
-  }
+<mat-card>
+    <mat-card-title>General Info</mat-card-title>
+  
+    @for (q of questions(); track $index) {
+      <app-question-card
+        [question]="q"
+        (answerChange)="onAnswerChange($event)">
+      </app-question-card>
+  
+      <mat-divider></mat-divider>
+    }
+  </mat-card>
   
