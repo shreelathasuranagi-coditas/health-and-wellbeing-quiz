@@ -3,13 +3,12 @@
     <div class="sidebar-inner">
       <h3 class="sidebar-title">Categories</h3>
 
-<div class="categories">
-  @for (cat of categories; track cat.id) {
-    <a [routerLink]="[cat.route]">
-      <mat-card
-        class="category-card"
-        [class.selected]="selected === cat.id"
-        role="link"
+      <div class="categories">
+        <mat-card
+          class="category-card"
+          *ngFor="let cat of categories()"
+          [class.selected]="selected() === cat.id"
+          (click)="goTo(cat)"
         >
       <div class="card-row">
         <div class="card-title">{{ cat.title }}</div>
@@ -31,8 +30,8 @@
         {{ cat.completed }}/{{ cat.total }}
       </div>
       </mat-card>
-    </a>
-  }
+    
+  
 </div>
 
     </div>

@@ -1,13 +1,66 @@
-<mat-card>
-    <mat-card-title>General Info</mat-card-title>
-  
-    @for (q of questions(); track $index) {
-      <app-question-card
-        [question]="q"
-        (answerChange)="onAnswerChange($event)">
-      </app-question-card>
-  
-      <mat-divider></mat-divider>
-    }
-  </mat-card>
-  
+<div class="page-shell">
+  <div class="page-header">
+    <div class="brand">
+      <mat-icon class="brand-icon" color="primary">favorite_border</mat-icon>
+      <span>Health & Wellbeing Quiz</span>
+    </div>
+  </div>
+
+  <div class="card-wrapper">
+    <mat-card class="question-shell">
+      <div class="card-head">
+        <div class="card-title-wrap">
+          <h3>General Info</h3>
+          <mat-icon *ngIf="completed()" color="primary" class="title-icon">check_circle</mat-icon>
+          <mat-icon *ngIf="!completed()" class="title-icon muted">radio_button_unchecked</mat-icon>
+        </div>
+
+        @if (questions().length) {
+          <div class="progress-banner">
+            <div class="progress-meta">
+              <span>{{ questionStepLabel() }}</span>
+              <span>{{ questionStepPercent() | number:'1.0-0' }}%</span>
+            </div>
+            <mat-progress-bar mode="determinate" [value]="questionStepPercent()"></mat-progress-bar>
+          </div>
+        }
+      </div>
+
+      @if (currentQuestion(); as q) {
+        <app-question-card
+          [question]="q"
+          [sectionLabel]="'General Info'"
+          (answerChange)="onAnswerChange($event)">
+        </app-question-card>
+      } @else {
+        <p>Loading questions...</p>
+      }
+    </mat-card>
+  </div>
+
+  <div class="nav-controls outside">
+    <button
+      type="button"
+      mat-stroked-button
+      color="primary"
+      (click)="prevQuestion()"
+      [disabled]="currentIndex() === 0">
+      <mat-icon>chevron_left</mat-icon>
+      Previous
+    </button>
+
+    <span class="nav-counter">
+      Question {{ currentIndex() + 1 }} of {{ questions().length || 0 }}
+    </span>
+
+    <button
+      type="button"
+      mat-raised-button
+      color="primary"
+      (click)="nextQuestion()"
+      [disabled]="questions().length === 0">
+      Next
+      <mat-icon>chevron_right</mat-icon>
+    </button>
+  </div>
+</div>

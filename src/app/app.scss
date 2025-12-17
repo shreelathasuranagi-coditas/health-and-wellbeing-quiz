@@ -1,0 +1,39 @@
+// Global base styles
+body {
+  margin: 0;
+  font-family: 'Roboto', 'Segoe UI', sans-serif;
+  background: radial-gradient(circle at 20% 20%, #f1f5ff 0, #f8fbff 35%, #eef2ff 100%);
+  color: #1f2933;
+  min-height: 100vh;
+}
+
+mat-card {
+  border-radius: 14px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.05);
+}
+
+.nav-controls {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-top: 16px;
+}
+
+.section-progress {
+  margin: 8px 0 16px;
+
+  .progress-meta {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-weight: 600;
+    color: #1f2933;
+    margin-bottom: 6px;
+  }
+
+  mat-progress-bar {
+    height: 10px;
+    border-radius: 6px;
+  }
+}
