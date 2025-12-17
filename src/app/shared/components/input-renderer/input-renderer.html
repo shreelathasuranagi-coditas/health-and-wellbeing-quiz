@@ -5,15 +5,18 @@
     <input
       matInput
       [type]="question().type"
-      [placeholder]="question().placeholder!" />
+      [placeholder]="question().placeholder!"
+      (input)="onTextChange($any($event.target).value)" />
   </mat-form-field>
 }
+
 
 <!-- RADIO -->
 @if (question().type === 'radio') {
   <p class="question">{{ question().question }}</p>
 
-  <mat-radio-group>
+  <mat-radio-group
+    (change)="onRadioChange($event.value)">
     @for (opt of question().options; track opt) {
       <mat-radio-button [value]="opt">
         {{ opt }}
@@ -22,13 +25,16 @@
   </mat-radio-group>
 }
 
+
 <!-- CHECKBOX -->
 @if (question().type === 'checkbox') {
   <p class="question">{{ question().question }}</p>
 
   @for (opt of question().options; track opt) {
-    <mat-checkbox>
+    <mat-checkbox
+      (change)="onCheckboxChange(opt, $event.checked)">
       {{ opt }}
     </mat-checkbox>
   }
 }
+
