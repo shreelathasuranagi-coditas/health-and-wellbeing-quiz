@@ -1,3 +1,5 @@
+export type QuestionType = 'text' | 'number' | 'radio' | 'select' | 'checkbox';
+
 export interface Question {
   type: 'text' | 'number' | 'radio' | 'select' | 'checkbox';
   label: string;

@@ -1,71 +1,34 @@
-@switch (question().type) {
+<!-- TEXT / NUMBER -->
+@if (question().type === 'text' || question().type === 'number') {
+  <mat-form-field appearance="outline" class="full-width">
+    <mat-label>{{ question().question }}</mat-label>
+    <input
+      matInput
+      [type]="question().type"
+      [placeholder]="question().placeholder!" />
+  </mat-form-field>
+}
 
-  @case ('text') {
-    <mat-form-field appearance="outline">
-      <mat-label>{{ question().label }}</mat-label>
-      <input
-        matInput
-        [required]="question().required"
-        [value]="value()"
-        (input)="onChange($any($event.target).value)"
-      />
-    </mat-form-field>
-  }
+<!-- RADIO -->
+@if (question().type === 'radio') {
+  <p class="question">{{ question().question }}</p>
 
-  @case ('number') {
-    <mat-form-field appearance="outline">
-      <mat-label>{{ question().label }}</mat-label>
-      <input
-        matInput
-        type="number"
-        [required]="question().required"
-        [value]="value()"
-        (input)="onChange($any($event.target).value)"
-      />
-    </mat-form-field>
-  }
+  <mat-radio-group>
+    @for (opt of question().options; track opt) {
+      <mat-radio-button [value]="opt">
+        {{ opt }}
+      </mat-radio-button>
+    }
+  </mat-radio-group>
+}
 
-  @case ('radio') {
-    <div>
-      <label class="question-label">{{ question().label }}</label>
+<!-- CHECKBOX -->
+@if (question().type === 'checkbox') {
+  <p class="question">{{ question().question }}</p>
 
-      <mat-radio-group
-        [value]="value()"
-        (change)="onChange($event.value)"
-      >
-        @for (option of question().options ?? []; track option) {
-          <mat-radio-button [value]="option">
-            {{ option }}
-          </mat-radio-button>
-        }
-      </mat-radio-group>
-    </div>
-  }
-
-  @case ('select') {
-    <mat-form-field appearance="outline">
-      <mat-label>{{ question().label }}</mat-label>
-
-      <mat-select
-        [value]="value()"
-        (selectionChange)="onChange($event.value)"
-      >
-        @for (option of question().options ?? []; track option) {
-          <mat-option [value]="option">
-            {{ option }}
-          </mat-option>
-        }
-      </mat-select>
-    </mat-form-field>
-  }
-
-  @case ('checkbox') {
-    <mat-checkbox
-      [checked]="value()"
-      (change)="onChange($event.checked)"
-    >
-      {{ question().label }}
+  @for (opt of question().options; track opt) {
+    <mat-checkbox>
+      {{ opt }}
     </mat-checkbox>
   }
-
 }

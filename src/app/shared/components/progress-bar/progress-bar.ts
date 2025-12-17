@@ -1,11 +1,11 @@
 import { Component } from '@angular/core';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
 
 @Component({
   selector: 'app-progress-bar',
-  imports: [],
+  standalone: true,
+  imports: [MatProgressBarModule],
   templateUrl: './progress-bar.html',
-  styleUrl: './progress-bar.scss',
+  styleUrls: ['./progress-bar.scss'],
 })
-export class ProgressBar {
-
-}
+export class ProgressBar {}

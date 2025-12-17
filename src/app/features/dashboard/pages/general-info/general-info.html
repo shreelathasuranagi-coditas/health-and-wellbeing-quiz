@@ -1,1 +1,4 @@
-<p>general-info works!</p>
+@for (q of this.questions(); track $index) {
+    <app-question-card [question]="q"></app-question-card>
+  }
+  
