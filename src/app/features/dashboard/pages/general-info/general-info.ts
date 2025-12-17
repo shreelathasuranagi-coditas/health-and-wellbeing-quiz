@@ -28,6 +28,7 @@ export class GeneralInfo {
   ngOnInit() {
     this.quizService.getGeneralInfo().subscribe(data => {
       this.questions.set(data);
+      console.log('GENERAL INFO QUESTIONS:', this.questions());
     });
   }
 

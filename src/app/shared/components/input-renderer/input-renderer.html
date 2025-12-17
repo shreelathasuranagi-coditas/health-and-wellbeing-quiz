@@ -1,7 +1,7 @@
 <!-- TEXT / NUMBER -->
 @if (question().type === 'text' || question().type === 'number') {
   <mat-form-field appearance="outline" class="full-width">
-    <!-- <mat-label>{{ question().question }}</mat-label> -->
+    <mat-label>{{ question().question }}</mat-label>
     <input
       matInput
       [type]="question().type"
@@ -13,7 +13,7 @@
 
 <!-- RADIO -->
 @if (question().type === 'radio') {
-  <!-- <p class="question">{{ question().question }}</p> -->
+  <p class="question">{{ question().question }}</p>
 
   <mat-radio-group
     (change)="onRadioChange($event.value)">

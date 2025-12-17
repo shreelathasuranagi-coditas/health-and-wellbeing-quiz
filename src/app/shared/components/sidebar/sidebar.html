@@ -3,25 +3,38 @@
     <div class="sidebar-inner">
       <h3 class="sidebar-title">Categories</h3>
 
-      <div class="categories">
-        <mat-card
-          class="category-card"
-          *ngFor="let cat of categories"
-          [class.selected]="selected === cat.id"
+<div class="categories">
+  @for (cat of categories; track cat.id) {
+    <a [routerLink]="[cat.route]">
+      <mat-card
+        class="category-card"
+        [class.selected]="selected === cat.id"
+        role="link"
         >
-          <div class="card-row">
-            <div class="card-title">{{ cat.title }}</div>
-            <div class="card-icon">
-              <mat-icon *ngIf="isComplete(cat)" color="primary">check_circle</mat-icon>
-              <mat-icon *ngIf="!isComplete(cat)">radio_button_unchecked</mat-icon>
-            </div>
-          </div>
-
-          <mat-progress-bar mode="determinate" [value]="cat.progress"></mat-progress-bar>
-
-          <div class="card-footer">{{ cat.completed }}/{{ cat.total }}</div>
-        </mat-card>
+      <div class="card-row">
+        <div class="card-title">{{ cat.title }}</div>
+        <div class="card-icon">
+          @if (isComplete(cat)) {
+            <mat-icon color="primary">check_circle</mat-icon>
+          } @else {
+            <mat-icon>radio_button_unchecked</mat-icon>
+          }
+        </div>
       </div>
+
+      <mat-progress-bar
+        mode="determinate"
+        [value]="cat.progress">
+      </mat-progress-bar>
+
+      <div class="card-footer">
+        {{ cat.completed }}/{{ cat.total }}
+      </div>
+      </mat-card>
+    </a>
+  }
+</div>
+
     </div>
   </mat-sidenav>
   <mat-sidenav-content></mat-sidenav-content>
