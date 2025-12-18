@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { Question } from '../../../../core/models/quiz.model';
 import { QuizService } from '../../../../core/services/quiz-service';
 import { ProgressService } from '../../../../core/services/progress.service';
+import { StorageService, StoredAnswer } from '../../../../core/services/storage-service';
 import { MatCardModule } from '@angular/material/card';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatButtonModule } from '@angular/material/button';
@@ -30,6 +31,7 @@ export class GeneralInfo {
   private router = inject(Router);
   quizService = inject(QuizService);
   private progress = inject(ProgressService);
+  private storage = inject(StorageService);
 
   // questions from API
   questions = signal<Question[]>([]);
@@ -81,7 +83,7 @@ export class GeneralInfo {
       this.questions.set(data);
       this.currentIndex.set(0); // reset to first when data loads
       this.progress.setSelected('general');
-      this.updateProgress();
+      this.hydrateFromStorage();
     });
   }
 
@@ -96,6 +98,10 @@ export class GeneralInfo {
     this.progress.setAnswer('general', payload.question, String(payload.answer ?? ''));
     this.updateProgress();
     console.log('GENERAL INFO ANSWERS:', this.answers());
+
+    // ensure localStorage entries are tagged with section + keep raw value
+    const raw = (this.storage.getAnswer(payload.question) as StoredAnswer | null) ?? payload.answer;
+    this.storage.saveAnswer(payload.question, raw as StoredAnswer, 'general');
   }
 
   nextQuestion() {
@@ -121,6 +127,32 @@ export class GeneralInfo {
 
   private updateProgress() {
     this.progress.updateSection('general', this.answeredCount(), this.questions().length);
+  }
+
+  private hydrateFromStorage() {
+    const list = this.questions();
+    if (!list.length) {
+      this.updateProgress();
+      return;
+    }
+
+    const seeded: Record<string, StoredAnswer> = {};
+
+    list.forEach(q => {
+      const stored = this.storage.getAnswer(q.question);
+      if (stored === null) return;
+
+      // keep raw value in local answers for controls/progress
+      seeded[q.question] = stored;
+
+      // string representation for sidebar/summary progress
+      const display =
+        Array.isArray(stored) ? stored.join(', ') : String(stored ?? '');
+      this.progress.setAnswer('general', q.question, display);
+    });
+
+    this.answers.set(seeded);
+    this.updateProgress();
   }
 }
 
