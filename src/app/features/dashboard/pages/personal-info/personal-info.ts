@@ -75,7 +75,13 @@ export class PersonalInfo {
   ngOnInit() {
     this.quizService.getPersonalInfo().subscribe(data => {
       this.questions.set(data);
-      this.currentIndex.set(0);
+      // restore saved index
+      const savedIndex = this.storage.loadIndex('personal');
+      if (savedIndex > 0 && savedIndex < data.length) {
+        this.currentIndex.set(savedIndex);
+      } else {
+        this.currentIndex.set(0);
+      }
       this.progress.setSelected('personal');
       this.hydrateFromStorage();
     });
@@ -99,6 +105,7 @@ export class PersonalInfo {
 
     if (next < list.length) {
       this.currentIndex.set(next);
+      this.storage.saveIndex('personal', next); // persist index
     } else {
       // move to next section
       this.progress.setSelected('family');
@@ -111,6 +118,7 @@ export class PersonalInfo {
 
     if (prev >= 0) {
       this.currentIndex.set(prev);
+      this.storage.saveIndex('personal', prev); // persist index
     } else {
       this.progress.setSelected('general');
       this.router.navigate(['/general-info']);

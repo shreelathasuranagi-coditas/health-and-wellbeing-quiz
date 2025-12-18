@@ -92,4 +92,32 @@ export class StorageService {
       // ignore
     }
   }
+
+  /**
+   * Save the current question index for a section (e.g., 'general', 'personal', 'family').
+   */
+  saveIndex(section: string, index: number): void {
+    if (!this.storageAvailable) return;
+    try {
+      const key = `quiz_index_${section}`;
+      window.localStorage.setItem(key, String(Math.max(0, index)));
+    } catch {
+      // ignore
+    }
+  }
+
+  /**
+   * Load the saved question index for a section, or return 0 if not found/invalid.
+   */
+  loadIndex(section: string): number {
+    if (!this.storageAvailable) return 0;
+    try {
+      const key = `quiz_index_${section}`;
+      const raw = window.localStorage.getItem(key);
+      const num = raw ? Number(raw) : NaN;
+      return Number.isFinite(num) && num >= 0 ? num : 0;
+    } catch {
+      return 0;
+    }
+  }
 }
