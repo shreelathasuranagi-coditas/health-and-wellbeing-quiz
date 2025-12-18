@@ -19,37 +19,48 @@ import { Question } from '../../../core/models/quiz.model';
   templateUrl: './input-renderer.html',
   styleUrl: './input-renderer.scss',
 })
+
 export class InputRenderer {
-  // input signal
   question = input.required<Question>();
 
-  // local answer state (signal)
   answer = signal<string | number | string[] | null>(null);
 
-  // output signal
-  answerChange = output<string | number | string[] | null>();
+  answerChange = output<string | number | string[] | 'Not Answered'>();
 
-  // TEXT / NUMBER
+  emitAnswer(value: string | number | string[] | null) {
+    if (
+      value === null ||
+      value === '' ||
+      (Array.isArray(value) && value.length === 0)
+    ) {
+      this.answerChange.emit('Not Answered');
+      return;
+    }
+
+    this.answerChange.emit(value);
+  }
+
   onTextChange(value: string | number) {
     this.answer.set(value);
-    this.answerChange.emit(this.answer());
+    this.emitAnswer(value);
   }
 
-  // RADIO
   onRadioChange(value: string) {
     this.answer.set(value);
-    this.answerChange.emit(this.answer());
+    this.emitAnswer(value);
   }
 
-  // CHECKBOX
   onCheckboxChange(option: string, checked: boolean) {
-    const current = (this.answer() as string[]) ?? [];
+    const current = Array.isArray(this.answer())
+      ? (this.answer() as string[])
+      : [];
 
     const updated = checked
       ? [...current, option]
       : current.filter(v => v !== option);
 
     this.answer.set(updated);
-    this.answerChange.emit(this.answer());
+    this.emitAnswer(updated);
   }
 }
+

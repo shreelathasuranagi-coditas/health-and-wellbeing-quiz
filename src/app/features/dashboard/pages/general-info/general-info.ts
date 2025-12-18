@@ -27,6 +27,7 @@ import { DecimalPipe } from '@angular/common';
   styleUrl: './general-info.scss',
 })
 export class GeneralInfo {
+
   private router = inject(Router);
   quizService = inject(QuizService);
   private progress = inject(ProgressService);
@@ -45,14 +46,22 @@ export class GeneralInfo {
     return list[idx] ?? null;
   });
 
-  // 🔥 ANSWERS STORE (signal)
+  
   answers = signal<Record<string, any>>({});
 
   completed = computed(
     () => this.questions().length > 0 && Object.keys(this.answers()).length >= this.questions().length,
   );
 
-  answeredCount = computed(() => Object.keys(this.answers()).length);
+  answeredCount = computed(() => {
+  return Object.values(this.answers()).filter(answer => {
+    if (Array.isArray(answer)) {
+      return answer.length > 0;
+    }
+    return answer !== null && answer !== '';
+  }).length;
+});
+
 
   progressPercent = computed(() => {
     const total = this.questions().length;
@@ -77,17 +86,28 @@ export class GeneralInfo {
   });
 
   ngOnInit() {
-    this.quizService.getGeneralInfo().subscribe(data => {
-      this.questions.set(data);
-      this.currentIndex.set(0); // reset to first when data loads
-      this.progress.setSelected('general');
-      this.updateProgress();
+  this.quizService.getGeneralInfo().subscribe(data => {
+    this.questions.set(data);
+    this.currentIndex.set(0);
+    this.progress.setSelected('general');
+
+   
+    data.forEach(q => {
+      this.progress.setAnswer(
+        'general',
+        q.question,
+        'Not Answered'
+      );
     });
-  }
+
+    this.updateProgress();
+  });
+}
+
 
   // called when ANY answer changes
   onAnswerChange(payload: { question: string; answer: any }) {
-
+    console.log('Answer changed:', payload);
     this.answers.update(prev => ({
       ...prev,
       [payload.question]: payload.answer,

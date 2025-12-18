@@ -14,16 +14,16 @@ export class QuestionCard {
   question = input.required<Question>();
   sectionLabel = input<string>('');
 
-  // ✅ Inline type, no model
-  answerChange = output<{ question: string; answer: string }>();
+  answerChange = output<{
+    question: string;
+    answer: string | number | string[];
+  }>();
 
-  onAnswerChange(value: any) {
-    const answer =
-      Array.isArray(value) ? value.join(', ') : String(value ?? '');
-
+  onAnswerChange(value: string | number | string[]) {
     this.answerChange.emit({
       question: this.question().question,
-      answer,
+      answer: value,
     });
   }
 }
+

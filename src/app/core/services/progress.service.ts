@@ -9,7 +9,7 @@ export interface SectionProgress {
   total: number;
   progress: number; 
 }
-
+       
 export interface AnswerEntry {
   section: SectionId;
   question: string;
@@ -18,6 +18,8 @@ export interface AnswerEntry {
 
 @Injectable({ providedIn: 'root' })
 export class ProgressService {
+
+  
   private sections = signal<SectionProgress[]>([
     { id: 'general', title: 'General Info', completed: 0, total: 0, progress: 0 },
     { id: 'personal', title: 'Personal Info', completed: 0, total: 0, progress: 0 },

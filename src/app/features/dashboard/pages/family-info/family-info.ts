@@ -73,14 +73,24 @@ export class FamilyInfo {
     this.progress.updateSection('family', this.answeredCount(), this.questions().length);
   });
 
-  ngOnInit() {
-    this.quizService.getFamilyInfo().subscribe(data => {
-      this.questions.set(data);
-      this.currentIndex.set(0);
-      this.progress.setSelected('family');
-      this.updateProgress();
+   ngOnInit() {
+  this.quizService.getGeneralInfo().subscribe(data => {
+    this.questions.set(data);
+    this.currentIndex.set(0);
+    this.progress.setSelected('general');
+
+   
+    data.forEach(q => {
+      this.progress.setAnswer(
+        'general',
+        q.question,
+        'Not Answered'
+      );
     });
-  }
+
+    this.updateProgress();
+  });
+}
 
   onAnswerChange(payload: { question: string; answer: any }) {
     this.answers.update(prev => ({

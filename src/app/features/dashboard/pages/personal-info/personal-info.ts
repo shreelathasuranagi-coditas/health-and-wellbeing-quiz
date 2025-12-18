@@ -26,7 +26,9 @@ import { DecimalPipe } from '@angular/common';
   templateUrl: './personal-info.html',
   styleUrl: './personal-info.scss',
 })
+
 export class PersonalInfo {
+
   private router = inject(Router);
   quizService = inject(QuizService);
   private progress = inject(ProgressService);
@@ -70,14 +72,24 @@ export class PersonalInfo {
     this.progress.updateSection('personal', this.answeredCount(), this.questions().length);
   });
 
-  ngOnInit() {
-    this.quizService.getPersonalInfo().subscribe(data => {
-      this.questions.set(data);
-      this.currentIndex.set(0);
-      this.progress.setSelected('personal');
-      this.updateProgress();
+   ngOnInit() {
+  this.quizService.getGeneralInfo().subscribe(data => {
+    this.questions.set(data);
+    this.currentIndex.set(0);
+    this.progress.setSelected('general');
+
+   
+    data.forEach(q => {
+      this.progress.setAnswer(
+        'general',
+        q.question,
+        'Not Answered'
+      );
     });
-  }
+
+    this.updateProgress();
+  });
+} 
 
   onAnswerChange(payload: { question: string; answer: any }) {
     this.answers.update(prev => ({

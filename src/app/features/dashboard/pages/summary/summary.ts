@@ -11,6 +11,7 @@ import { ProgressService, AnswerEntry } from '../../../../core/services/progress
   templateUrl: './summary.html',
   styleUrl: './summary.scss',
 })
+
 export class Summary {
   private progress = inject(ProgressService);
 
