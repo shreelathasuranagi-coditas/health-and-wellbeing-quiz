@@ -23,6 +23,7 @@ import { DecimalPipe } from '@angular/common';
     QuestionCard,
     DecimalPipe
   ],
+  
   templateUrl: './family-info.html',
   styleUrl: './family-info.scss',
 })

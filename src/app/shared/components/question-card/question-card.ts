@@ -1,12 +1,14 @@
 import { Component, input, output } from '@angular/core';
 import { InputRenderer } from '../input-renderer/input-renderer';
 import { Question } from '../../../core/models/quiz.model';
+import { MatCardModule } from '@angular/material/card';
 
 @Component({
   selector: 'app-question-card',
   standalone: true,
-  imports: [InputRenderer],
+  imports: [InputRenderer,MatCardModule],
   templateUrl: './question-card.html',
+  styleUrls: ['./question-card.scss'],
 })
 export class QuestionCard {
   question = input.required<Question>();
