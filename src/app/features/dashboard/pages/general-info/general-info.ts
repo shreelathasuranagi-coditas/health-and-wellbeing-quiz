@@ -81,7 +81,13 @@ export class GeneralInfo {
   ngOnInit() {
     this.quizService.getGeneralInfo().subscribe(data => {
       this.questions.set(data);
-      this.currentIndex.set(0); // reset to first when data loads
+      // restore saved index
+      const savedIndex = this.storage.loadIndex('general');
+      if (savedIndex > 0 && savedIndex < data.length) {
+        this.currentIndex.set(savedIndex);
+      } else {
+        this.currentIndex.set(0);
+      }
       this.progress.setSelected('general');
       this.hydrateFromStorage();
     });
@@ -110,6 +116,7 @@ export class GeneralInfo {
 
     if (next < list.length) {
       this.currentIndex.set(next);
+      this.storage.saveIndex('general', next); // persist index
     } else {
       // go to next section
       this.progress.setSelected('personal');
@@ -122,6 +129,7 @@ export class GeneralInfo {
 
     if (prev >= 0) {
       this.currentIndex.set(prev);
+      this.storage.saveIndex('general', prev); // persist index
     }
   }
 

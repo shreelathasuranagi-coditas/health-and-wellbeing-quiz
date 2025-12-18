@@ -78,7 +78,13 @@ export class FamilyInfo {
   ngOnInit() {
     this.quizService.getFamilyInfo().subscribe(data => {
       this.questions.set(data);
-      this.currentIndex.set(0);
+      // restore saved index
+      const savedIndex = this.storage.loadIndex('family');
+      if (savedIndex > 0 && savedIndex < data.length) {
+        this.currentIndex.set(savedIndex);
+      } else {
+        this.currentIndex.set(0);
+      }
       this.progress.setSelected('family');
       this.hydrateFromStorage();
     });
@@ -102,6 +108,7 @@ export class FamilyInfo {
 
     if (next < list.length) {
       this.currentIndex.set(next);
+      this.storage.saveIndex('family', next); // persist index
     } else {
       // all done -> go to summary
       this.router.navigate(['/summary']);
@@ -113,6 +120,7 @@ export class FamilyInfo {
 
     if (prev >= 0) {
       this.currentIndex.set(prev);
+      this.storage.saveIndex('family', prev); // persist index
     } else {
       // move to previous section when already at first question
       this.progress.setSelected('personal');
