@@ -9,6 +9,7 @@ import { QuizService } from '../../../../core/services/quiz-service';
 import { Question } from '../../../../core/models/quiz.model';
 import { QuestionCard } from '../../../../shared/components/question-card/question-card';
 import { ProgressService } from '../../../../core/services/progress.service';
+import { StorageService, StoredAnswer } from '../../../../core/services/storage-service';
 import { DecimalPipe } from '@angular/common';
 
 @Component({
@@ -23,6 +24,7 @@ import { DecimalPipe } from '@angular/common';
     QuestionCard,
     DecimalPipe
   ],
+  
   templateUrl: './family-info.html',
   styleUrl: './family-info.scss',
 })
@@ -30,6 +32,7 @@ export class FamilyInfo {
   private router = inject(Router);
   quizService = inject(QuizService);
   private progress = inject(ProgressService);
+  private storage = inject(StorageService);
   questions = signal<Question[]>([]);
 
   // which question is shown
@@ -77,7 +80,7 @@ export class FamilyInfo {
       this.questions.set(data);
       this.currentIndex.set(0);
       this.progress.setSelected('family');
-      this.updateProgress();
+      this.hydrateFromStorage();
     });
   }
 
@@ -88,6 +91,9 @@ export class FamilyInfo {
     }));
     this.progress.setAnswer('family', payload.question, String(payload.answer ?? ''));
     this.updateProgress();
+
+    const raw = (this.storage.getAnswer(payload.question) as StoredAnswer | null) ?? payload.answer;
+    this.storage.saveAnswer(payload.question, raw as StoredAnswer, 'family');
   }
 
   nextQuestion() {
@@ -116,6 +122,30 @@ export class FamilyInfo {
 
   private updateProgress() {
     this.progress.updateSection('family', this.answeredCount(), this.questions().length);
+  }
+
+  private hydrateFromStorage() {
+    const list = this.questions();
+    if (!list.length) {
+      this.updateProgress();
+      return;
+    }
+
+    const seeded: Record<string, StoredAnswer> = {};
+
+    list.forEach(q => {
+      const stored = this.storage.getAnswer(q.question);
+      if (stored === null) return;
+
+      seeded[q.question] = stored;
+
+      const display =
+        Array.isArray(stored) ? stored.join(', ') : String(stored ?? '');
+      this.progress.setAnswer('family', q.question, display);
+    });
+
+    this.answers.set(seeded);
+    this.updateProgress();
   }
 }
 

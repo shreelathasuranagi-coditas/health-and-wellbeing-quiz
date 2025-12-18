@@ -73,4 +73,20 @@ export class ProgressService {
       },
     }));
   }
+
+  resetAll() {
+    this.sections.set([
+      { id: 'general', title: 'General Info', completed: 0, total: 0, progress: 0 },
+      { id: 'personal', title: 'Personal Info', completed: 0, total: 0, progress: 0 },
+      { id: 'family', title: 'Family Info', completed: 0, total: 0, progress: 0 },
+    ]);
+
+    this.answers.set({
+      general: {},
+      personal: {},
+      family: {},
+    });
+
+    this.selected.set('general');
+  }
 }

@@ -66,3 +66,22 @@
 .answer {
   color: #475569;
 }
+
+.summary-actions {
+  margin-top: 24px;
+  display: flex;
+  justify-content: center;
+}
+
+.empty-text {
+  margin: 8px 0 0;
+  color: #9ca3af;
+  font-size: 14px;
+}
+
+.summary-nav {
+  margin-top: 16px;
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+}

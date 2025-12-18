@@ -1,11 +1,11 @@
 <!-- TEXT / NUMBER -->
 @if (question().type === 'text' || question().type === 'number') {
   <mat-form-field appearance="outline" class="full-width">
-    <!-- <mat-label>{{ question().question }}</mat-label> -->
     <input
       matInput
       [type]="question().type"
       [placeholder]="question().placeholder!"
+      [value]="answer() ?? ''"
       (input)="onTextChange($any($event.target).value)" />
   </mat-form-field>
 }
@@ -13,9 +13,8 @@
 
 <!-- RADIO -->
 @if (question().type === 'radio') {
-  <!-- <p class="question">{{ question().question }}</p> -->
-
   <mat-radio-group
+    [value]="answer()"
     (change)="onRadioChange($event.value)">
     @for (opt of question().options; track opt) {
       <mat-radio-button [value]="opt">
@@ -29,10 +28,9 @@
 
 <!-- CHECKBOX -->
 @if (question().type === 'checkbox') {
-  <!-- <p class="question">{{ question().question }}</p> -->
-
   @for (opt of question().options; track opt) {
     <mat-checkbox
+      [checked]="isChecked(opt)"
       (change)="onCheckboxChange(opt, $event.checked)">
       {{ opt }}
     </mat-checkbox>

@@ -5,22 +5,54 @@
   </h2>
 
   <div class="summary-grid">
-    @for (section of grouped() | keyvalue; track section.key) {
-      <mat-card class="section-card">
-        <div class="section-head">
-          <h3>{{ section.key | titlecase }} Info</h3>
-          <mat-icon color="primary">check_circle</mat-icon>
-        </div>
+    <mat-card class="section-card">
+      <div class="section-head">
+        <h3>{{ currentSection().label }}</h3>
+        <mat-icon *ngIf="rowsForCurrentSection().length" color="primary">check_circle</mat-icon>
+      </div>
 
+      @if (rowsForCurrentSection().length) {
         <div class="qa-list">
-          @for (item of section.value; track item.question) {
+          @for (item of rowsForCurrentSection(); track item.question) {
             <div class="qa-row">
               <div class="question">{{ item.question }}</div>
               <div class="answer">{{ item.answer }}</div>
             </div>
           }
         </div>
-      </mat-card>
-    }
+      } @else {
+        <p class="empty-text">No answers yet for this section.</p>
+      }
+    </mat-card>
+  </div>
+
+  <div class="summary-nav">
+    <button
+      type="button"
+      mat-stroked-button
+      color="primary"
+      (click)="prevSection()"
+      [disabled]="currentSectionIndex() === 0">
+      Previous
+    </button>
+
+    <button
+      type="button"
+      mat-raised-button
+      color="primary"
+      (click)="nextSection()"
+      [disabled]="currentSectionIndex() === sections.length - 1">
+      Next
+    </button>
+  </div>
+
+  <div class="summary-actions">
+    <button
+      type="button"
+      mat-stroked-button
+      color="primary"
+      (click)="resetQuiz()">
+      Restart quiz
+    </button>
   </div>
 </div>
