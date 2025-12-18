@@ -1,3 +1,4 @@
 export const environment = {
-    baseUrl:'http://localhost:4000'
+    production: true,
+    baseUrl:'https://health-and-well-being-quiz.vercel.app/api'
 };
