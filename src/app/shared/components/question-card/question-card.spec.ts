@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { QuestionCard } from './question-card';
+import { title } from 'process';
 
 describe('QuestionCard', () => {
   let component: QuestionCard;
@@ -21,3 +22,6 @@ describe('QuestionCard', () => {
     expect(component).toBeTruthy();
   });
 });
+
+
+

@@ -3,48 +3,66 @@
 }
 
 .question-card {
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-  padding: 8px 0;
-}
-
-.section-pill {
-  align-self: flex-start;
-  font-size: 14px;
-  font-weight: 700;
-  line-height: 1.2;
-  padding: 8px 12px;
-  border-radius: 999px;
-  background: #e6f0ff;
-  color: #2251cf;
-  letter-spacing: 0.2px;
+  max-width: 760px;
+  margin: 0 auto 24px auto;
+  padding: 24px;
+  border-radius: 14px;
+  background-color: #ffffff;
+  box-shadow: 0 6px 18px rgba(15, 23, 42, 0.06);
 }
 
 .question-title {
-  font-size: 26px;
+  margin: 0 0 20px 0;
+  font-size: 22px;
   font-weight: 700;
-  margin: 0;
+  line-height: 1.35;
   color: #0f172a;
 }
 
-mat-form-field.full-width {
-  width: 100%;
+:host ::ng-deep .mat-mdc-card-content {
+  padding: 0;
 }
 
-mat-form-field .mdc-notched-outline__leading,
-mat-form-field .mdc-notched-outline__notch,
-mat-form-field .mdc-notched-outline__trailing {
-  border-radius: 10px;
-}
-
-mat-radio-group {
+:host ::ng-deep mat-radio-group {
   display: flex;
   flex-direction: column;
-  gap: 10px;
 }
 
-mat-radio-button,
-mat-checkbox {
-  padding: 6px 0;
+:host ::ng-deep .mat-mdc-checkbox,
+:host ::ng-deep .mat-mdc-radio-button {
+  box-sizing: border-box;
+  width: 100%;
+  max-width: 100%;
+
+  display: flex;
+  align-items: center;
+
+  padding: 14px 16px;
+  margin-bottom: 12px;
+
+  border: 1px solid #e5e7eb;
+  border-radius: 10px;
+  background-color: #ffffff;
+
+  overflow: hidden;
+
+  transition: border-color 0.15s ease, background-color 0.15s ease;
+}
+
+:host ::ng-deep .mat-mdc-checkbox:hover,
+:host ::ng-deep .mat-mdc-radio-button:hover {
+  background-color: #f8fafc;
+  border-color: #c7d2fe;
+}
+
+:host ::ng-deep .mat-mdc-checkbox.mat-mdc-checkbox-checked,
+:host ::ng-deep .mat-mdc-radio-button.mat-mdc-radio-checked {
+  background-color: #f0f6ff;
+  border-color: #3b82f6;
+}
+
+:host ::ng-deep .mdc-label {
+  font-size: 15px;
+  color: #111827;
+  white-space: normal;
 }
