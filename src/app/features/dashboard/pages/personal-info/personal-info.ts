@@ -9,6 +9,7 @@ import { Question } from '../../../../core/models/quiz.model';
 import { QuizService } from '../../../../core/services/quiz-service';
 import { QuestionCard } from '../../../../shared/components/question-card/question-card';
 import { ProgressService } from '../../../../core/services/progress.service';
+import { StorageService, StoredAnswer } from '../../../../core/services/storage-service';
 import { DecimalPipe } from '@angular/common';
 
 @Component({
@@ -32,6 +33,7 @@ export class PersonalInfo {
   private router = inject(Router);
   quizService = inject(QuizService);
   private progress = inject(ProgressService);
+  private storage = inject(StorageService);
   questions = signal<Question[]>([]);
 
   currentIndex = signal(0);
@@ -72,24 +74,17 @@ export class PersonalInfo {
     this.progress.updateSection('personal', this.answeredCount(), this.questions().length);
   });
 
-   ngOnInit() {
-  this.quizService.getGeneralInfo().subscribe(data => {
-    this.questions.set(data);
-    this.currentIndex.set(0);
-    this.progress.setSelected('general');
-
-   
-    data.forEach(q => {
-      this.progress.setAnswer(
-        'general',
-        q.question,
-        'Not Answered'
-      );
+  ngOnInit() {
+    this.quizService.getPersonalInfo().subscribe(data => {
+      this.questions.set(data);
+      this.currentIndex.set(0);
+      this.progress.setSelected('personal');
+      this.hydrateFromStorage();
     });
 
     this.updateProgress();
-  });
-} 
+  };
+ 
 
   onAnswerChange(payload: { question: string; answer: any }) {
     this.answers.update(prev => ({
@@ -98,6 +93,9 @@ export class PersonalInfo {
     }));
     this.progress.setAnswer('personal', payload.question, String(payload.answer ?? ''));
     this.updateProgress();
+
+    const raw = (this.storage.getAnswer(payload.question) as StoredAnswer | null) ?? payload.answer;
+    this.storage.saveAnswer(payload.question, raw as StoredAnswer, 'personal');
   }
 
   nextQuestion() {
@@ -127,4 +125,29 @@ export class PersonalInfo {
   private updateProgress() {
     this.progress.updateSection('personal', this.answeredCount(), this.questions().length);
   }
+
+  private hydrateFromStorage() {
+    const list = this.questions();
+    if (!list.length) {
+      this.updateProgress();
+      return;
+    }
+
+    const seeded: Record<string, StoredAnswer> = {};
+
+    list.forEach(q => {
+      const stored = this.storage.getAnswer(q.question);
+      if (stored === null) return;
+
+      seeded[q.question] = stored;
+
+      const display =
+        Array.isArray(stored) ? stored.join(', ') : String(stored ?? '');
+      this.progress.setAnswer('personal', q.question, display);
+    });
+
+    this.answers.set(seeded);
+    this.updateProgress();
+  }
 }
+

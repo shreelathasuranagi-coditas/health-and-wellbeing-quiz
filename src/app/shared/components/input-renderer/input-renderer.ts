@@ -1,10 +1,11 @@
-import { Component, input, output, signal } from '@angular/core';
+import { Component, effect, inject, input, output, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { Question } from '../../../core/models/quiz.model';
+import { StorageService, StoredAnswer } from '../../../core/services/storage-service';
 
 @Component({
   selector: 'app-input-renderer',
@@ -23,31 +24,33 @@ import { Question } from '../../../core/models/quiz.model';
 export class InputRenderer {
   question = input.required<Question>();
 
-  answer = signal<string | number | string[] | null>(null);
+  // local answer state (signal)
+  answer = signal<StoredAnswer | null>(null);
 
-  answerChange = output<string | number | string[] | 'Not Answered'>();
+  // output signal
+  answerChange = output<StoredAnswer | null>();
 
-  emitAnswer(value: string | number | string[] | null) {
-    if (
-      value === null ||
-      value === '' ||
-      (Array.isArray(value) && value.length === 0)
-    ) {
-      this.answerChange.emit('Not Answered');
-      return;
-    }
+  private storage = inject(StorageService);
 
-    this.answerChange.emit(value);
+  constructor() {
+    // hydrate from storage when the question changes
+    effect(() => {
+      const q = this.question();
+      const stored = this.storage.getAnswer(q.question);
+      this.answer.set(stored ?? null);
+    });
   }
 
   onTextChange(value: string | number) {
     this.answer.set(value);
-    this.emitAnswer(value);
+    this.answerChange.emit(this.answer());
+    this.storage.saveAnswer(this.question().question, value);
   }
 
   onRadioChange(value: string) {
     this.answer.set(value);
-    this.emitAnswer(value);
+    this.answerChange.emit(this.answer());
+    this.storage.saveAnswer(this.question().question, value);
   }
 
   onCheckboxChange(option: string, checked: boolean) {
@@ -60,7 +63,13 @@ export class InputRenderer {
       : current.filter(v => v !== option);
 
     this.answer.set(updated);
-    this.emitAnswer(updated);
+    this.answerChange.emit(this.answer());
+    this.storage.saveAnswer(this.question().question, updated);
+  }
+
+  isChecked(option: string): boolean {
+    const value = this.answer();
+    return Array.isArray(value) && value.indexOf(option) > -1;
   }
 }
 
